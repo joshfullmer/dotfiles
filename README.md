@@ -52,20 +52,20 @@ dotfiles push
 
 ### Terminal Setup
 
-**iTerm2**
+#### iTerm2
 
 ```sh
 brew install --cask iterm2
 ```
 
-**Monaspace**
+#### Monaspace
 
 ```sh
 brew tap homebrew/cask-fonts
 brew install font-monaspace
 ```
 
-**ripgrep**
+#### ripgrep
 
 ```sh
 brew install ripgrep
@@ -73,25 +73,25 @@ brew install ripgrep
 
 #### iTerm2 settings
 
-**Colors**
+##### Colors
 
 - Download [tokyonight](https://github.com/enkia/tokyo-night-vscode-theme/blob/master/tokyo-night.itermcolors)
 - Settings > Profiles > Colors > Color Presets > Import...
 
-**Font**
+##### Font
 
 - Settings > Profiles > Text > Font > ...
   - MonaspiceAr Nerd Font Propo
   - Regular 14
 
-**Window**
+##### Window
 
 - Settings > Profiles > Window > ...
   - Transparency > 35
   - Keep background colors opaque
   - Use transparency
 
-**Terminal**
+##### Terminal
 
 - Settings > Profiles > Terminal > ...
   - Enable mouse reporting
@@ -100,82 +100,92 @@ brew install ripgrep
 
 ### Dependency Installation
 
-**oh-my-zsh**
+#### oh-my-zsh
 
 ```sh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-**Neovim**
+#### Neovim
 
 ```sh
 brew install neovim
 ```
 
-**tmux**
+#### tmux
+
 Terminal multiplexer
 
 ```sh
 brew install tmux
 ```
 
-**Powerlevel 10k**
+#### Powerlevel 10k
+
 Terminal theme
 
 ```sh
 brew install powerlevel10k
 ```
 
-**nvm**
+#### nvm
+
 Node Version Manager
 
 ```sh
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 ```
 
-**pnpm**
+#### pnpm
+
 Node Package Manager
 
 ```sh
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 ```
 
-**fzf**
+#### fzf
+
 Fuzzy Finder
 
 ```sh
 brew install fzf
 ```
 
-**fd**
+#### fd
+
 Fuzzy Find wrapper/improvements
 
 ```sh
 brew install fd
 ```
 
-**bat**
+#### bat
+
 Better `cat`
 
 ```sh
 brew install bat
 ```
 
-**eza**
+#### eza
+
 Better `ls`
 
 ```sh
 brew install eza
 ```
 
-**tldr**
+#### tldr
+
 Better help pages
 
 ```sh
 brew install tlrc
 ```
 
-**zoxide**
+#### zoxide
+
 Better `cd`
 
 ```sh
