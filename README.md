@@ -10,10 +10,10 @@ Based on [this article](https://www.atlassian.com/git/tutorials/dotfiles).
 git clone --bare git@github.com:joshfullmer/dotfiles.git $HOME/.dotfiles
 ```
 
-- Either restart the shell or source the `.zshrc` file.
+- Add temporary alias to initially manage dotfiles git
 
 ```sh
-source ~/.zshrc
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 ```
 
 - Checkout the repo
@@ -27,6 +27,12 @@ dotfiles checkout
 
 ```sh
 dotfiles config --local status.showUntrackedFiles no
+```
+
+- Either restart the shell or source the `.zshrc` file.
+
+```sh
+source ~/.zshrc
 ```
 
 Once all these steps are taken, you can then modify dotfiles as follows:
