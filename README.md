@@ -1,5 +1,11 @@
 # Dotfiles
 
+## System Setup
+
+Set capslock key to ctrl
+
+-  > System Settings > Keyboard > Keyboard Shortcuts... > Modifier Keys > Capslock key to Control^
+
 ## Installation
 
 Based on [this article](https://www.atlassian.com/git/tutorials/dotfiles).
@@ -65,14 +71,39 @@ brew install font-monaspace
 brew install ripgrep
 ```
 
-TODO
+#### iTerm2 settings
+
+**Colors**
+
+- Download [tokyonight](https://github.com/enkia/tokyo-night-vscode-theme/blob/master/tokyo-night.itermcolors)
+- Settings > Profiles > Colors > Color Presets > Import...
+
+**Font**
+
+- Settings > Profiles > Text > Font > ...
+  - MonaspiceAr Nerd Font Propo
+  - Regular 14
+
+**Window**
+
+- Settings > Profiles > Window > ...
+  - Transparency > 35
+  - Keep background colors opaque
+  - Use transparency
+
+**Terminal**
+
+- Settings > Profiles > Terminal > ...
+  - Enable mouse reporting
+  - Report mouse wheel events
+  - Report mouse clicks & drags
 
 ### Dependency Installation
 
 **oh-my-zsh**
 
 ```sh
-https://ohmyz.sh/#install
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
 **Neovim**
