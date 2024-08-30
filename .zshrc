@@ -14,10 +14,10 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting web-search)
 
 source $ZSH/oh-my-zsh.sh
 
-alias rzsh="source ~/.zshrc"
-alias ezsh="nvim ~/.zshrc"
-alias envim="nvim ~/.config/nvim"
-alias nvim="nvim --listen '/tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe'"
+alias rz="source ~/.zshrc"
+alias ez="nvim ~/.zshrc"
+alias evim="nvim ~/.config/nvim"
+alias vim="nvim --listen '/tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe'"
 alias etmux="nvim ~/.tmux.conf"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
