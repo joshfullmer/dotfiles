@@ -21,6 +21,8 @@ return {
       { "<leader>l_", hidden = true },
       { "<leader>n", group = "[N]ext" },
       { "<leader>n_", hidden = true },
+      { "<leader>o", group = "[O]bsidian" },
+      { "<leader>o_", hidden = true },
       { "<leader>p", group = "[P]revious" },
       { "<leader>p_", hidden = true },
       { "<leader>r", group = "[R]ename" },

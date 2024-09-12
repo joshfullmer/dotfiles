@@ -8,6 +8,7 @@ opt.breakindent = true
 opt.undofile = true
 opt.signcolumn = "yes"
 opt.updatetime = 250
+opt.conceallevel = 2
 opt.timeout = true
 opt.timeoutlen = 300
 opt.inccommand = "split"

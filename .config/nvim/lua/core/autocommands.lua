@@ -11,5 +11,5 @@ local group = vim.api.nvim_create_augroup("Markdown Wrap Settings", { clear = tr
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = { "*.md" },
   group = group,
-  command = "setlocal wrap",
+  command = "setlocal wrap spell",
 })
