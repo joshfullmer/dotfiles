@@ -9,7 +9,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 local group = vim.api.nvim_create_augroup("Markdown Wrap Settings", { clear = true })
 
 vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = { "*.md" },
+  pattern = { "*/vaults/*.md" },
   group = group,
-  command = "setlocal wrap spell",
+  command = "setlocal breakindent formatoptions=l lbr wrap spell",
 })

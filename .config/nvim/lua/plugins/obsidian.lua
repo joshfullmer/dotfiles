@@ -34,7 +34,7 @@ return {
       end,
 
       daily_notes = {
-        folder = "/2. (A)reas/Journal/",
+        folder = "/2. Areas/Journal/",
       },
     })
 
