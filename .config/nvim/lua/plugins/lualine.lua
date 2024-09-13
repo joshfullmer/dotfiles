@@ -5,6 +5,20 @@ return {
     local lualine = require("lualine")
     local lazy_status = require("lazy.status") -- to configure lazy pending updates count
 
+    local function getWords()
+      if vim.bo.filetype == "md" or vim.bo.filetype == "txt" or vim.bo.filetype == "markdown" then
+        if vim.fn.wordcount().visual_words == 1 then
+          return tostring(vim.fn.wordcount().visual_words) .. " word"
+        elseif not (vim.fn.wordcount().visual_words == nil) then
+          return tostring(vim.fn.wordcount().visual_words) .. " words"
+        else
+          return tostring(vim.fn.wordcount().words) .. " words"
+        end
+      else
+        return ""
+      end
+    end
+
     -- configure lualine with modified theme
     lualine.setup({
       options = {
@@ -17,6 +31,7 @@ return {
             file_status = true,
             path = 1,
           },
+          { getWords },
         },
         lualine_x = {
           {
@@ -24,8 +39,6 @@ return {
             cond = lazy_status.has_updates,
             color = { fg = "#ff9e64" },
           },
-          { "encoding" },
-          { "fileformat" },
           { "filetype" },
         },
       },
