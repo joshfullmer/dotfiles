@@ -146,6 +146,7 @@ alias vim="nvim --listen '/tmp/nvim-server-$(tmux display-message -p '\#{session
 alias etmux="nvim ~/.tmux.conf"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
+alias c="clear"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 
 # --- ENDPOINT VARIABLES ---
