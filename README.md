@@ -100,12 +100,6 @@ brew install ripgrep
 
 ### Dependency Installation
 
-#### oh-my-zsh
-
-```sh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-```
-
 #### Neovim
 
 ```sh
