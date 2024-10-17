@@ -139,12 +139,12 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # --- ALIASES ---
-alias rz="source ~/.zshrc"
-alias ez="nvim ~/.zshrc"
-alias evim="nvim ~/.config/nvim"
 alias vim="nvim --listen '/tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe'"
-alias etmux="nvim ~/.tmux.conf"
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+alias evim="vim ~/.config/nvim"
+alias ez="vim ~/.zshrc"
+alias rz="source ~/.zshrc"
+alias etmux="vim ~/.tmux.conf"
+alias edot="vim ~/.dotfiles"
 
 alias c="clear"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
