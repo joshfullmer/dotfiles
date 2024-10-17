@@ -15,6 +15,10 @@ return {
         },
       },
 
+      templates = {
+        folder = "Templates",
+      },
+
       completion = {
         nvim_cmp = true,
         min_chars = 2,
@@ -33,8 +37,11 @@ return {
         return path:with_suffix(".md")
       end,
 
+      wiki_link_func = "prepend_note_path",
+
       daily_notes = {
         folder = "/2. Areas/Journal/",
+        template = "Daily",
       },
     })
 
