@@ -2,52 +2,37 @@
 
 ## System Setup
 
-Set capslock key to ctrl
+### Set capslock key to ctrl
 
 -  > System Settings > Keyboard > Keyboard Shortcuts... > Modifier Keys > Capslock key to Control^
 
-## Installation
+### Install homebrew
 
-Based on [this article](https://www.atlassian.com/git/tutorials/dotfiles).
-
-- Clone the repo into the "side" folder called `.dotfiles`
+[https://brew.sh/](https://brew.sh/)
 
 ```sh
-git clone --bare git@github.com:joshfullmer/dotfiles.git $HOME/.dotfiles
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
-- Add temporary alias to initially manage dotfiles git
+## Clone dotfiles repo and symlink
+
+Install `stow`, a symlink farm manager to symlink this directory to root.
 
 ```sh
-alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
+brew install stow
 ```
 
-- Checkout the repo
-  - You may need to delete existing files
+Clone existing dotfiles into `~/.dotfiles` directory.
 
 ```sh
-dotfiles checkout
+git clone git@github.com/joshfullmer/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
 ```
 
-- Ignore untracked files
+Use `stow` to create symlinks.
 
 ```sh
-dotfiles config --local status.showUntrackedFiles no
-```
-
-- Either restart the shell or source the `.zshrc` file.
-
-```sh
-source ~/.zshrc
-```
-
-Once all these steps are taken, you can then modify dotfiles as follows:
-
-```sh
-dotfiles status
-dotfiles add .zshrc
-dotfiles commit -m ".zshrc change"
-dotfiles push
+stow .
 ```
 
 ### Terminal Setup
