@@ -37,10 +37,10 @@ stow .
 
 ### Terminal Setup
 
-#### WezTerm
+#### iTerm2
 
-```bash
-brew install --cask wezterm
+```sh
+brew install --cask iterm2
 ```
 
 #### Monaspace
@@ -55,6 +55,33 @@ brew install font-monaspace
 ```sh
 brew install ripgrep
 ```
+
+#### iTerm2 settings
+
+##### Colors
+
+- Download [tokyonight](https://github.com/enkia/tokyo-night-vscode-theme/blob/master/tokyo-night.itermcolors)
+- Settings > Profiles > Colors > Color Presets > Import...
+
+##### Font
+
+- Settings > Profiles > Text > Font > ...
+  - MonaspiceAr Nerd Font Propo
+  - Regular 14
+
+##### Window
+
+- Settings > Profiles > Window > ...
+  - Transparency > 35
+  - Keep background colors opaque
+  - Use transparency
+
+##### Terminal
+
+- Settings > Profiles > Terminal > ...
+  - Enable mouse reporting
+  - Report mouse wheel events
+  - Report mouse clicks & drags
 
 ### Dependency Installation
 
