@@ -11,9 +11,17 @@ return {
   config = function()
     local telescope = require("telescope")
     local actions = require("telescope.actions")
+    local telescopeConfig = require("telescope.config")
+
+    local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
+
+    table.insert(vimgrep_arguments, "--hidden")
+    table.insert(vimgrep_arguments, "--glob")
+    table.insert(vimgrep_arguments, "!**/.git/*")
 
     telescope.setup({
       defaults = {
+        vimgrep_arguments = vimgrep_arguments,
         path_display = { truncate = 3 },
         mappings = {
           i = {
@@ -21,6 +29,14 @@ return {
             ["<C-j>"] = actions.move_selection_next, -- move to next result
             ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
           },
+        },
+        file_ignore_patterns = {
+          "legacy_jigoku", -- For `forceteki` specifically
+        },
+      },
+      pickers = {
+        find_files = {
+          find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*" },
         },
       },
       extensions = {
