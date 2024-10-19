@@ -19,10 +19,13 @@ return {
       end
     end
 
+    local tokyonight_moon = require("lualine.themes.tokyonight-moon")
+    tokyonight_moon.normal.c.bg = "None"
+
     -- configure lualine with modified theme
     lualine.setup({
       options = {
-        theme = "tokyonight-moon",
+        theme = tokyonight_moon,
       },
       sections = {
         lualine_c = {
