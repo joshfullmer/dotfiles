@@ -150,10 +150,10 @@ alias c="clear"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 
 # --- ENDPOINT VARIABLES ---
-script_name="~/projects/endpoint.sh"
+script_name="$HOME/projects/endpoint.sh"
 
 if [ -f "$script_name" ]; then
-  ./"$script_name"
+  . "$script_name"
 fi
 
 # --- Powerlevel10k ---
