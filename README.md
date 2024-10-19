@@ -5,6 +5,7 @@
 ### Set capslock key to ctrl
 
 -  > System Settings > Keyboard > Keyboard Shortcuts... > Modifier Keys > Capslock key to Control^
+- Change keyboard sensitivity for repeat rate and delay
 
 ### Install homebrew
 
@@ -25,7 +26,7 @@ brew install stow
 Clone existing dotfiles into `~/.dotfiles` directory.
 
 ```sh
-git clone git@github.com/joshfullmer/dotfiles.git ~/.dotfiles
+git clone git@github.com:joshfullmer/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ```
 
@@ -47,7 +48,7 @@ brew install --cask wezterm
 
 ```sh
 brew tap homebrew/cask-fonts
-brew install font-monaspace
+brew install font-monaspace-nerd-font
 ```
 
 #### ripgrep
@@ -70,6 +71,12 @@ Terminal multiplexer
 
 ```sh
 brew install tmux
+```
+
+Add tpm
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
 #### Powerlevel 10k
@@ -145,6 +152,12 @@ brew install zoxide
 ```
 
 ### lazygit.nvim
+
+Install lazygit
+
+```bash
+brew install lazygit
+```
 
 When in neovim, open the lazygit config with `:LazyGitConfig` and add:
 
