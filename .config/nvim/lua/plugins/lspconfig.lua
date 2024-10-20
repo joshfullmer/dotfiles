@@ -88,7 +88,20 @@ return {
       ts_ls = {},
       html = {},
       cssls = {},
-      tailwindcss = {},
+      tailwindcss = {
+        settings = {
+          tailwindCSS = {
+            experimental = {
+              classRegex = {
+                { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+                { "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
+                { "cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
+                { "([a-zA-Z0-9\\-:]+)" },
+              },
+            },
+          },
+        },
+      },
       svelte = {
         on_attach = function(client)
           vim.api.nvim_create_autocmd("BufWritePost", {
