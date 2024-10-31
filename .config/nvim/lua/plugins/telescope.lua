@@ -32,6 +32,9 @@ return {
         },
         file_ignore_patterns = {
           "legacy_jigoku", -- For `forceteki` specifically
+          "package%-lock.json",
+          "yarn.lock",
+          "pnpm%-lock.yaml",
         },
       },
       pickers = {
