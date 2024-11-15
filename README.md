@@ -168,6 +168,10 @@ os:
   open: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>"
 ```
 
+### Raycast
+
+[download](https://www.raycast.com/)
+
 ## Resources
 
 [Josean](https://github.com/josean-dev/dev-environment-files?tab=readme-ov-file)
