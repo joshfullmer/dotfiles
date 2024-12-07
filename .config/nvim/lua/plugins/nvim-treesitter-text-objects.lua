@@ -44,11 +44,6 @@ return {
         },
         swap = {
           enable = true,
-          swap_next = {
-            ["<leader>na"] = { query = "@parameter.inner", desc = "Swap [A]rgument with next" }, -- swap parameters/argument with next
-            ["<leader>n:"] = { query = "@property.outer", desc = "Swap [O]bject property with next" }, -- swap object property with next
-            ["<leader>nm"] = { query = "@function.outer", desc = "[M] Swap function with next" }, -- swap function with next
-          },
           swap_previous = {
             ["<leader>pa"] = { query = "@parameter.inner", desc = "Swap [A]rgument with prev" }, -- swap parameters/argument with prev
             ["<leader>p:"] = { query = "@property.outer", desc = "Swap [O]bject property with prev" }, -- swap object property with prev

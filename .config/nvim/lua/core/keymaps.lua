@@ -35,5 +35,4 @@ keymap.set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current [S]plit 
 -- buffer management
 keymap.set("n", "<leader>bn", ":bnext<cr>", { desc = "[N]ext buffer" })
 keymap.set("n", "<leader>bp", ":bprev<cr>", { desc = "[P]revious buffer" })
-keymap.set("n", "<leader>bx", ":bdelete<cr>", { desc = "[X] Close buffer" })
-keymap.set("n", "<leader>bX", ":%bd|e#|bd#<cr>", { desc = "[X] Close all but current buffer", silent = true })
+keymap.set("n", "<leader>bD", ":%bd|e#|bd#<cr>", { desc = "[X] Close all but current buffer", silent = true })
