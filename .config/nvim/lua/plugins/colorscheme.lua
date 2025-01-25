@@ -6,10 +6,10 @@ return {
     config = function()
       require("tokyonight").setup({
         style = "moon",
-        transparent = true,
         styles = {
-          sidebars = "transparent",
-          floats = "transparent",
+          comments = { italic = true },
+          keywords = { italic = true },
+          functions = { italic = true },
         },
       })
 
