@@ -38,10 +38,10 @@ stow .
 
 ### Terminal Setup
 
-#### WezTerm
+#### Ghostty
 
 ```bash
-brew install --cask wezterm
+brew install --cask ghostty
 ```
 
 #### Monaspace
@@ -149,6 +149,14 @@ Better `cd`
 
 ```sh
 brew install zoxide
+```
+
+#### tokei
+
+Line counter
+
+```sh
+brew install tokei
 ```
 
 ### lazygit.nvim
