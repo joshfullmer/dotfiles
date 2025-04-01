@@ -132,12 +132,17 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # --- ALIASES ---
-alias vim="nvim --listen '/tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe'"
-alias evim="vim ~/.config/nvim"
-alias ez="vim ~/.zshrc"
+alias nvim="nvim --listen '/tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe'"
+alias v="NVIM_APPNAME=nvim-lazy nvim"
+alias vd="NVIM_APPNAME=nvim nvim"
+alias ev="v ~/.config/nvim"
+alias ez="v ~/.zshrc"
 alias rz="source ~/.zshrc"
-alias etmux="vim ~/.tmux.conf"
-alias edot="vim ~/.dotfiles"
+alias et="v ~/.tmux.conf"
+alias ed="v ~/.dotfiles"
+
+alias vim="v"
+alias vi="v"
 
 alias c="clear"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
