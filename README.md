@@ -188,9 +188,12 @@ When in neovim, open the lazygit config with `:LazyGitConfig` and add:
 
 ```yaml
 os:
-  editPreset: "nvim-remote"
-  open: 'nvim --server "$NVIM" --remote-send "<cmd>lua
-    require(''core.scripts.lazygit-open-file'')(''{{filename}}'', ''1'')<CR>"'
+  edit: 'noglob nvim --server "$NVIM" --remote-send "<cmd>lua
+    require(''core.scripts.lazygit-open-file'')(''{{filename}}'')<CR>"'
+  editAtLine: 'noglob nvim --server "$NVIM" --remote-send "<cmd>lua
+    require(''core.scripts.lazygit-open-file'')(''{{filename}}'', ''{{line}}'')<CR>"'
+  open: 'noglob nvim --server "$NVIM" --remote-send "<cmd>lua
+    require(''core.scripts.lazygit-open-file'')(''{{filename}}'')<CR>"'
 ```
 
 #### git-delta
