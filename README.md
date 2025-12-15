@@ -92,7 +92,7 @@ brew install powerlevel10k
 Node Version Manager
 
 ```sh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+brew install nvm
 ```
 
 #### pnpm
@@ -100,7 +100,15 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 Node Package Manager
 
 ```sh
-curl -fsSL https://get.pnpm.io/install.sh | sh -
+brew install pnpm
+```
+
+#### ni
+
+[`ni`](https://github.com/antfu-collective/ni)
+
+```sh
+brew install ni
 ```
 
 #### fzf
@@ -125,6 +133,15 @@ Better `cat`
 
 ```sh
 brew install bat
+```
+
+Use tokyonight theme
+
+```sh
+mkdir -p "$(bat --config-dir)/themes"
+cd "$(bat --config-dir)/themes"
+curl -O https://raw.githubusercontent.com/folke/tokyonight.nvim/main/extras/sublime/tokyonight_night.tmTheme
+bat cache --build
 ```
 
 #### eza
@@ -159,7 +176,7 @@ Line counter
 brew install tokei
 ```
 
-### lazygit.nvim
+#### lazygit.nvim
 
 Install lazygit
 
@@ -171,9 +188,15 @@ When in neovim, open the lazygit config with `:LazyGitConfig` and add:
 
 ```yaml
 os:
-  edit: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>"
-  editAtLine: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>"
-  open: nvim --server /tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe --remote-send "<cmd>lua require('core.scripts.lazygit-open-file')('{{filename}}', '{{line}}')<CR>"
+  editPreset: "nvim-remote"
+  open: 'nvim --server "$NVIM" --remote-send "<cmd>lua
+    require(''core.scripts.lazygit-open-file'')(''{{filename}}'', ''1'')<CR>"'
+```
+
+#### git-delta
+
+```sh
+brew install git-delta
 ```
 
 ### Raycast

@@ -26,6 +26,21 @@ return {
   {
     "christoomey/vim-tmux-navigator",
     event = "BufReadPre",
+    cmd = {
+      "TmuxNavigateLeft",
+      "TmuxNavigateDown",
+      "TmuxNavigateUp",
+      "TmuxNavigateRight",
+      "TmuxNavigatePrevious",
+      "TmuxNavigatorProcessList",
+    },
+    keys = {
+      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+    },
   },
 
   -- obsidian
@@ -33,7 +48,7 @@ return {
     "epwalsh/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
     lazy = true,
-    -- ft = "markdown",
+    ft = "markdown",
     event = {
       "BufReadPre " .. vim.fn.expand("~") .. "/vaults/personal/*.md",
       "BufNewFile " .. vim.fn.expand("~") .. "/vaults/personal/*.md",
@@ -148,20 +163,41 @@ return {
     opts = {
       servers = {
         tailwindcss = {
-          settings = {
-            tailwindCSS = {
-              experimental = {
-                classRegex = {
-                  { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
-                  { "cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" },
-                  { "cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]" },
-                  { "([a-zA-Z0-9\\-:]+)" },
-                },
-              },
-            },
+          filetypes = {
+            "html",
+            "css",
+            "scss",
+            "javascript",
+            "javascriptreact",
+            "typescript",
+            "typescriptreact",
+            "svelte",
           },
         },
       },
+      setup = {
+        tailwindcss = function(_, opts)
+          opts.settings = {
+            tailwindCSS = {
+              experimental = {
+                classRegex = {
+                  { "cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
+                  { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
+                  { "cx\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
+                },
+              },
+            },
+          }
+        end,
+      },
+    },
+  },
+
+  {
+    "chrisgrieser/nvim-early-retirement",
+    event = "VeryLazy",
+    opts = {
+      retirementAgeMins = 5,
     },
   },
 }

@@ -2,4 +2,6 @@
 
 .DS_Store
 
-.config/tmux/*/**
+.config/tmux/**
+.config/raycast/**
+.config/gh/**
