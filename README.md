@@ -202,6 +202,39 @@ os:
 brew install git-delta
 ```
 
+#### Taskwarrior
+
+CLI-based task manager with tmux status bar integration.
+
+```sh
+brew install task
+```
+
+**Aliases:**
+
+| Alias | Command | Description |
+|-------|---------|-------------|
+| `t` | `task` | List tasks by urgency |
+| `ta` | `task add` | Add a task |
+| `tl` | `task list` | List all tasks |
+| `td` | `task done` | Mark task as done |
+| `tt` | `task add due:today` | Add task due today |
+
+**Examples:**
+
+```sh
+# Add a task due today
+tt "Write blog post"
+
+# Add a recurring task (every weekday at 9am)
+ta "Daily standup" due:9am recur:weekdays
+
+# Mark task #1 as done
+td 1
+```
+
+Tasks that are due today, overdue, or have no due date will appear in the tmux status bar.
+
 ### Raycast
 
 [download](https://www.raycast.com/)

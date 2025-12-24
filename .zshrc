@@ -148,6 +148,13 @@ alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time
 
 alias python=python3.13
 
+# Taskwarrior aliases
+alias t="task"
+alias ta="task add"
+alias tl="task list"
+alias td="task done"
+alias tt="task add due:today"  # Quick add task due today
+
 if [ -f "$script_name" ]; then
   . "$script_name"
 fi
