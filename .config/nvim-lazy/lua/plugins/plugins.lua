@@ -45,87 +45,63 @@ return {
 
   -- obsidian
   {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
     version = "*", -- recommended, use latest release instead of latest commit
-    lazy = true,
     ft = "markdown",
-    event = {
-      "BufReadPre " .. vim.fn.expand("~") .. "/vaults/personal/*.md",
-      "BufNewFile " .. vim.fn.expand("~") .. "/vaults/personal/*.md",
+    ---@module 'obsidian'
+    ---@type obsidian.config
+    opts = {
+      workspaces = {
+        {
+          name = "personal",
+          path = "~/vaults/personal",
+        },
+        {
+          name = "work",
+          path = "~/vaults/work",
+        },
+      },
+
+      templates = {
+        folder = "Templates",
+      },
+
+      note_path_func = function(spec)
+        local path = spec.dir / tostring(spec.title or spec.id)
+        return path:with_suffix(".md")
+      end,
+
+      daily_notes = {
+        folder = "2. Areas/Journal",
+        template = "Daily",
+      },
     },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
+    keys = {
+      { "<leader>oc", "<cmd>Obsidian toggle_checkbox<CR>", desc = "Obsidian Check Checkbox" },
+      { "<leader>ot", "<cmd>Obsidian template<CR>", desc = "Obsidian [T]emplate" },
+      { "<leader>oo", "<cmd>Obsidian open<CR>", desc = "Obsidian [O]pen in App" },
+      { "<leader>ob", "<cmd>Obsidian backlinks<CR>", desc = "Obsidian [B]acklinks" },
+      { "<leader>ol", "<cmd>Obsidian links<CR>", desc = "Obsidian [L]inks" },
+      { "<leader>on", "<cmd>Obsidian new<CR>", desc = "Obsidian [N]ew Note" },
+      { "<leader>os", "<cmd>Obsidian search<CR>", desc = "Obsidian [S]earch (grep)" },
+      { "<leader>oq", "<cmd>Obsidian quick_switch<CR>", desc = "Obsidian [Q]uick Switch" },
+      { "<leader>od", "<cmd>Obsidian today<CR>", desc = "Obsidian [D]aily Note" },
     },
-    config = function()
-      require("obsidian").setup({
-        ui = { enable = false },
-        workspaces = {
-          {
-            name = "personal",
-            path = "~/vaults/personal",
-          },
-        },
-
-        templates = {
-          folder = "Templates",
-        },
-
-        completion = {
-          nvim_cmp = true,
-          -- TODO: Uncomment when https://github.com/epwalsh/obsidian.nvim/pull/817 is merged
-          -- blink = true,
-          min_chars = 2,
-        },
-
-        follow_url_func = function(url)
-          -- vim.fn.jobstart({ "open", url }) -- Mac OS
-          vim.ui.open(url) -- need Neovim 0.10.0+
-        end,
-
-        ---@param spec { id: string, dir: obsidian.Path, title: string|? }
-        ---@return string|obsidian.Path The full path to the new note.
-        note_path_func = function(spec)
-          -- This is equivalent to the default behavior.
-          local path = spec.dir / tostring(spec.title)
-          return path:with_suffix(".md")
-        end,
-
-        wiki_link_func = "prepend_note_path",
-
-        daily_notes = {
-          folder = "/2. Areas/Journal/",
-          template = "Daily",
-        },
-      })
-
-      vim.keymap.set(
-        "n",
-        "<leader>oc",
-        "<cmd>lua require('obsidian').util.toggle_checkbox()<CR>",
-        { desc = "Obsidian Check Checkbox" }
-      )
-      vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianTemplate<CR>", { desc = "[T]emplate" })
-      vim.keymap.set("n", "<leader>oo", "<cmd>ObsidianOpen<CR>", { desc = "[O]pen in Obsidian App" })
-      vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "[B]acklinks" })
-      vim.keymap.set("n", "<leader>ol", "<cmd>ObsidianLinks<CR>", { desc = "[L]inks" })
-      vim.keymap.set("n", "<leader>on", "<cmd>ObsidianNew<CR>", { desc = "[N]ew Note" })
-      vim.keymap.set("n", "<leader>os", "<cmd>ObsidianSearch<CR>", { desc = "[S]earch Obsidian (grep)" })
-      vim.keymap.set("n", "<leader>oq", "<cmd>ObsidianQuickSwitch<CR>", { desc = "[Q]uick Switch" })
-      vim.keymap.set("n", "<leader>od", "<cmd>ObsidianToday<CR>", { desc = "[D]aily Note" })
-    end,
   },
+
+  -- blink.cmp keymaps
   {
     "saghen/blink.cmp",
-    dependencies = {
-      { "epwalsh/obsidian.nvim", "saghen/blink.compat" },
-    },
     opts = {
       keymap = {
         ["<C-k>"] = { "select_prev", "fallback" },
         ["<C-j>"] = { "select_next", "fallback" },
       },
-      sources = {
-        compat = { "obsidian", "obsidian_new", "obsidian_tags" },
+      cmdline = {
+        keymap = {
+          ["<C-k>"] = { "select_prev", "fallback" },
+          ["<C-j>"] = { "select_next", "fallback" },
+        },
       },
     },
   },
@@ -146,6 +122,7 @@ return {
   -- Show all hidden files by default
   {
     "folke/snacks.nvim",
+    ---@module "snacks"
     ---@type snacks.Config
     opts = {
       picker = {
