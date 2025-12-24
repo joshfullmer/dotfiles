@@ -1,4 +1,7 @@
 return {
+  -- Disable community snippets
+  { "rafamadriz/friendly-snippets", enabled = false },
+
   -- colorscheme
   {
     "folke/tokyonight.nvim",
