@@ -177,4 +177,15 @@ return {
       retirementAgeMins = 5,
     },
   },
+
+  -- neotest vitest adapter
+  { "marilari88/neotest-vitest" },
+  {
+    "nvim-neotest/neotest",
+    opts = {
+      adapters = {
+        ["neotest-vitest"] = {},
+      },
+    },
+  },
 }
