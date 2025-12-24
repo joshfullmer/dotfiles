@@ -132,9 +132,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # --- ALIASES ---
-# alias nvim="nvim --listen '/tmp/nvim-server-$(tmux display-message -p '\#{session_id}-#{window_id}-#{pane_id}').pipe'"
-alias v="NVIM_APPNAME=nvim-lazy nvim"
-alias vd="NVIM_APPNAME=nvim nvim"
+alias v="nvim"
 alias ev="v ~/.config/nvim"
 alias ez="v ~/.zshrc"
 alias rz="source ~/.zshrc"
@@ -149,9 +147,6 @@ alias c="clear"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 
 alias python=python3.13
-
-# --- ENDPOINT VARIABLES ---
-script_name="$HOME/projects/endpoint.sh"
 
 if [ -f "$script_name" ]; then
   . "$script_name"
