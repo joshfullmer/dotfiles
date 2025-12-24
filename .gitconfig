@@ -25,3 +25,6 @@
 
 [diff]
     colorMoved = default
+
+[includeIf "gitdir:~/projects/"]
+    path = ~/.gitconfig-work
