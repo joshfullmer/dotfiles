@@ -181,6 +181,17 @@ return {
     },
   },
 
+  -- diffview - git diff viewer
+  {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = {
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
+      { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview File History" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview Branch History" },
+    },
+  },
+
   -- neotest vitest adapter
   { "marilari88/neotest-vitest" },
   {
