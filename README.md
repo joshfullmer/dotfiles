@@ -188,12 +188,9 @@ When in neovim, open the lazygit config with `:LazyGitConfig` and add:
 
 ```yaml
 os:
-  edit: 'noglob nvim --server "$NVIM" --remote-send "<cmd>lua
-    require(''core.scripts.lazygit-open-file'')(''{{filename}}'')<CR>"'
-  editAtLine: 'noglob nvim --server "$NVIM" --remote-send "<cmd>lua
-    require(''core.scripts.lazygit-open-file'')(''{{filename}}'', ''{{line}}'')<CR>"'
-  open: 'noglob nvim --server "$NVIM" --remote-send "<cmd>lua
-    require(''core.scripts.lazygit-open-file'')(''{{filename}}'')<CR>"'
+  edit: 'nvim --server "$NVIM" --remote-send ''<cmd>lua require("core.scripts.lazygit-open-file")([[{{filename}}]])<CR>'''
+  editAtLine: 'nvim --server "$NVIM" --remote-send ''<cmd>lua require("core.scripts.lazygit-open-file")([[{{filename}}]], {{line}})<CR>'''
+  open: 'nvim --server "$NVIM" --remote-send ''<cmd>lua require("core.scripts.lazygit-open-file")([[{{filename}}]])<CR>'''
 ```
 
 #### git-delta
@@ -212,13 +209,13 @@ brew install task
 
 **Aliases:**
 
-| Alias | Command | Description |
-|-------|---------|-------------|
-| `t` | `task` | List tasks by urgency |
-| `ta` | `task add` | Add a task |
-| `tl` | `task list` | List all tasks |
-| `td` | `task done` | Mark task as done |
-| `tt` | `task add due:today` | Add task due today |
+| Alias | Command              | Description           |
+| ----- | -------------------- | --------------------- |
+| `t`   | `task`               | List tasks by urgency |
+| `ta`  | `task add`           | Add a task            |
+| `tl`  | `task list`          | List all tasks        |
+| `td`  | `task done`          | Mark task as done     |
+| `tt`  | `task add due:today` | Add task due today    |
 
 **Examples:**
 
