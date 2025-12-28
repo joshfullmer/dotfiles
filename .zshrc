@@ -137,6 +137,7 @@ alias ev="v ~/.config/nvim"
 alias ez="v ~/.zshrc"
 alias rz="source ~/.zshrc"
 alias et="v ~/.tmux.conf"
+alias rt="tmux source-file ~/.tmux.conf"
 alias ed="v ~/.dotfiles"
 alias el='v ~/Library/Application\ Support/lazygit/config.yml'
 
