@@ -153,13 +153,10 @@ return {
             "typescriptreact",
             "svelte",
           },
-        },
-      },
-      setup = {
-        tailwindcss = function(_, opts)
-          opts.settings = {
+          settings = {
             tailwindCSS = {
               experimental = {
+                -- Match Tailwind classes inside cn(), cva(), and cx() utility functions
                 classRegex = {
                   { "cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
                   { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
@@ -167,8 +164,42 @@ return {
                 },
               },
             },
-          }
-        end,
+          },
+          -- Runs before the language server initializes for each workspace root.
+          -- Replaces the default before_init from lspconfig (which only sets tabSize),
+          -- so we replicate that logic here as well.
+          before_init = function(params, config)
+            -- Replicate default lspconfig before_init: sync editor tabSize
+            if not config.settings then
+              config.settings = {}
+            end
+            if not config.settings.editor then
+              config.settings.editor = {}
+            end
+            if not config.settings.editor.tabSize then
+              config.settings.editor.tabSize = vim.lsp.util.get_effective_tabstop()
+            end
+
+            -- Tailwind v4 auto-discovery can fail in monorepos where build output
+            -- dirs (dist/, .svelte-kit/) contain copies of the CSS entry point.
+            -- The server finds multiple files with `@import 'tailwindcss'`, picks
+            -- one from a build dir, fails to resolve its imports, and silently
+            -- gives up. To fix this, we scan only src/ for the entry point and
+            -- explicitly tell the server which file to use via configFile.
+            local root_dir = vim.uri_to_fname(params.rootUri)
+            local css_files = vim.fn.globpath(root_dir .. "/src", "**/*.css", false, true)
+            for _, file in ipairs(css_files) do
+              for _, line in ipairs(vim.fn.readfile(file, "", 10)) do
+                if line:match("@import%s+['\"]tailwindcss['\"]") then
+                  config.settings.tailwindCSS = config.settings.tailwindCSS or {}
+                  config.settings.tailwindCSS.experimental = config.settings.tailwindCSS.experimental or {}
+                  config.settings.tailwindCSS.experimental.configFile = file:sub(#root_dir + 2)
+                  return
+                end
+              end
+            end
+          end,
+        },
       },
     },
   },
@@ -190,6 +221,70 @@ return {
       { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview File History" },
       { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview Branch History" },
     },
+  },
+
+  -- eslint-lsp: patch for ESLint 10 compatibility
+  -- ESLint 10 removed FlatESLint from use-at-your-own-risk; vscode-langservers-extracted
+  -- hasn't been updated to handle this. This hook re-applies the fix after every install.
+  -- NOTE: The proper fix is tracked upstream in nvim-lspconfig (auto-setting useFlatConfig
+  -- should be dropped since ESLint 8.57+ handles flat configs natively). Remove this patch
+  -- once that issue is resolved: https://github.com/neovim/nvim-lspconfig/issues/4318
+  {
+    "mason-org/mason.nvim",
+    config = function(_, opts)
+      require("mason").setup(opts)
+
+      local registry = require("mason-registry")
+      registry:on("package:install:success", function(pkg)
+        if pkg.name ~= "eslint-lsp" then
+          return
+        end
+
+        local eslint_js = vim.fn.stdpath("data")
+          .. "/mason/packages/eslint-lsp/node_modules/vscode-langservers-extracted/lib/eslint-language-server/eslint.js"
+
+        local file = io.open(eslint_js, "r")
+        if not file then
+          vim.notify("eslint-lsp patch: could not open eslint.js", vim.log.levels.WARN)
+          return
+        end
+        local content = file:read("*all")
+        file:close()
+
+        -- Skip if already patched
+        if content:find("ESLint 10 compat", 1, true) then
+          return
+        end
+
+        -- ESLint 10 removed FlatESLint from use-at-your-own-risk. When the library
+        -- loads but FlatESLint is missing, fall back to the main ESLint class instead.
+        local old = "} else if (lib.FlatESLint === undefined) {"
+        local new = [[} else if (lib.FlatESLint === undefined) {
+                        // ESLint 10 compat: FlatESLint removed from use-at-your-own-risk; fall back to main ESLint class
+                        var mainLib = loadNodeModule(libraryPath.replace(/[\/\\]lib[\/\\]unsupported-api\.js$/, ''));
+                        if (mainLib && mainLib.ESLint) {
+                          connection.console.info("ESLint library loaded from: ".concat(libraryPath, " (ESLint 10 compat)"));
+                          library = { ESLint: mainLib.ESLint, isFlatConfig: true, CLIEngine: undefined };
+                          settings.library = library;
+                          path2Library.set(libraryPath, library);
+                        } else { // original error path:]]
+
+        local patched, n = content:gsub(vim.pesc(old), new, 1)
+        if n == 0 then
+          vim.notify("eslint-lsp patch: target string not found — patch may need updating", vim.log.levels.WARN)
+          return
+        end
+
+        file = io.open(eslint_js, "w")
+        if not file then
+          vim.notify("eslint-lsp patch: could not write eslint.js", vim.log.levels.WARN)
+          return
+        end
+        file:write(patched)
+        file:close()
+        vim.notify("eslint-lsp: patched for ESLint 10 compatibility", vim.log.levels.INFO)
+      end)
+    end,
   },
 
   -- neotest vitest adapter

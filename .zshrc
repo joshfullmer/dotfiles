@@ -143,6 +143,7 @@ alias el='v ~/Library/Application\ Support/lazygit/config.yml'
 
 alias vim="v"
 alias vi="v"
+alias vnuke="rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim"
 
 alias c="clear"
 alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
