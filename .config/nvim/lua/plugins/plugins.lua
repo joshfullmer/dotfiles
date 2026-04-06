@@ -38,10 +38,10 @@ return {
       "TmuxNavigatorProcessList",
     },
     keys = {
-      { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-      { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-      { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-      { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+      { "<c-h>",  "<cmd><C-U>TmuxNavigateLeft<cr>" },
+      { "<c-j>",  "<cmd><C-U>TmuxNavigateDown<cr>" },
+      { "<c-k>",  "<cmd><C-U>TmuxNavigateUp<cr>" },
+      { "<c-l>",  "<cmd><C-U>TmuxNavigateRight<cr>" },
       { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
     },
   },
@@ -81,14 +81,14 @@ return {
     },
     keys = {
       { "<leader>oc", "<cmd>Obsidian toggle_checkbox<CR>", desc = "Obsidian Check Checkbox" },
-      { "<leader>ot", "<cmd>Obsidian template<CR>", desc = "Obsidian [T]emplate" },
-      { "<leader>oo", "<cmd>Obsidian open<CR>", desc = "Obsidian [O]pen in App" },
-      { "<leader>ob", "<cmd>Obsidian backlinks<CR>", desc = "Obsidian [B]acklinks" },
-      { "<leader>ol", "<cmd>Obsidian links<CR>", desc = "Obsidian [L]inks" },
-      { "<leader>on", "<cmd>Obsidian new<CR>", desc = "Obsidian [N]ew Note" },
-      { "<leader>os", "<cmd>Obsidian search<CR>", desc = "Obsidian [S]earch (grep)" },
-      { "<leader>oq", "<cmd>Obsidian quick_switch<CR>", desc = "Obsidian [Q]uick Switch" },
-      { "<leader>od", "<cmd>Obsidian today<CR>", desc = "Obsidian [D]aily Note" },
+      { "<leader>ot", "<cmd>Obsidian template<CR>",        desc = "Obsidian [T]emplate" },
+      { "<leader>oo", "<cmd>Obsidian open<CR>",            desc = "Obsidian [O]pen in App" },
+      { "<leader>ob", "<cmd>Obsidian backlinks<CR>",       desc = "Obsidian [B]acklinks" },
+      { "<leader>ol", "<cmd>Obsidian links<CR>",           desc = "Obsidian [L]inks" },
+      { "<leader>on", "<cmd>Obsidian new<CR>",             desc = "Obsidian [N]ew Note" },
+      { "<leader>os", "<cmd>Obsidian search<CR>",          desc = "Obsidian [S]earch (grep)" },
+      { "<leader>oq", "<cmd>Obsidian quick_switch<CR>",    desc = "Obsidian [Q]uick Switch" },
+      { "<leader>od", "<cmd>Obsidian today<CR>",           desc = "Obsidian [D]aily Note" },
     },
   },
 
@@ -141,6 +141,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      inlay_hints = { enabled = false },
       servers = {
         tailwindcss = {
           filetypes = {
@@ -158,9 +159,9 @@ return {
               experimental = {
                 -- Match Tailwind classes inside cn(), cva(), and cx() utility functions
                 classRegex = {
-                  { "cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
+                  { "cn\\(([^)]*)\\)",  "[\"'`]([^\"'`]*)[\"'`]" },
                   { "cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
-                  { "cx\\(([^)]*)\\)", "[\"'`]([^\"'`]*)[\"'`]" },
+                  { "cx\\(([^)]*)\\)",  "[\"'`]([^\"'`]*)[\"'`]" },
                 },
               },
             },
@@ -217,74 +218,10 @@ return {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
-      { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "Diffview Open" },
+      { "<leader>gd", "<cmd>DiffviewOpen<cr>",          desc = "Diffview Open" },
       { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "Diffview File History" },
-      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Diffview Branch History" },
+      { "<leader>gH", "<cmd>DiffviewFileHistory<cr>",   desc = "Diffview Branch History" },
     },
-  },
-
-  -- eslint-lsp: patch for ESLint 10 compatibility
-  -- ESLint 10 removed FlatESLint from use-at-your-own-risk; vscode-langservers-extracted
-  -- hasn't been updated to handle this. This hook re-applies the fix after every install.
-  -- NOTE: The proper fix is tracked upstream in nvim-lspconfig (auto-setting useFlatConfig
-  -- should be dropped since ESLint 8.57+ handles flat configs natively). Remove this patch
-  -- once that issue is resolved: https://github.com/neovim/nvim-lspconfig/issues/4318
-  {
-    "mason-org/mason.nvim",
-    config = function(_, opts)
-      require("mason").setup(opts)
-
-      local registry = require("mason-registry")
-      registry:on("package:install:success", function(pkg)
-        if pkg.name ~= "eslint-lsp" then
-          return
-        end
-
-        local eslint_js = vim.fn.stdpath("data")
-          .. "/mason/packages/eslint-lsp/node_modules/vscode-langservers-extracted/lib/eslint-language-server/eslint.js"
-
-        local file = io.open(eslint_js, "r")
-        if not file then
-          vim.notify("eslint-lsp patch: could not open eslint.js", vim.log.levels.WARN)
-          return
-        end
-        local content = file:read("*all")
-        file:close()
-
-        -- Skip if already patched
-        if content:find("ESLint 10 compat", 1, true) then
-          return
-        end
-
-        -- ESLint 10 removed FlatESLint from use-at-your-own-risk. When the library
-        -- loads but FlatESLint is missing, fall back to the main ESLint class instead.
-        local old = "} else if (lib.FlatESLint === undefined) {"
-        local new = [[} else if (lib.FlatESLint === undefined) {
-                        // ESLint 10 compat: FlatESLint removed from use-at-your-own-risk; fall back to main ESLint class
-                        var mainLib = loadNodeModule(libraryPath.replace(/[\/\\]lib[\/\\]unsupported-api\.js$/, ''));
-                        if (mainLib && mainLib.ESLint) {
-                          connection.console.info("ESLint library loaded from: ".concat(libraryPath, " (ESLint 10 compat)"));
-                          library = { ESLint: mainLib.ESLint, isFlatConfig: true, CLIEngine: undefined };
-                          settings.library = library;
-                          path2Library.set(libraryPath, library);
-                        } else { // original error path:]]
-
-        local patched, n = content:gsub(vim.pesc(old), new, 1)
-        if n == 0 then
-          vim.notify("eslint-lsp patch: target string not found — patch may need updating", vim.log.levels.WARN)
-          return
-        end
-
-        file = io.open(eslint_js, "w")
-        if not file then
-          vim.notify("eslint-lsp patch: could not write eslint.js", vim.log.levels.WARN)
-          return
-        end
-        file:write(patched)
-        file:close()
-        vim.notify("eslint-lsp: patched for ESLint 10 compatibility", vim.log.levels.INFO)
-      end)
-    end,
   },
 
   -- neotest vitest adapter

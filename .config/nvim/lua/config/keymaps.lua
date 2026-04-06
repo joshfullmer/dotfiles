@@ -6,9 +6,6 @@
 vim.keymap.set("i", "jk", "<ESC>", { desc = "Exit insert mode with jk" })
 vim.keymap.set("i", "kj", "<ESC>", { desc = "Exit insert mode with kj" })
 
--- save file override
-vim.keymap.set("n", "<leader>a", "<cmd>update<CR><esc>", { desc = "Write file" })
-
 -- clear search highlights
 vim.keymap.set("n", "<ESC>", "<cmd>nohlsearch<CR>", { desc = "Clear search highlights" })
 

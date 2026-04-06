@@ -5,3 +5,5 @@
 .config/tmux/plugins/**
 .config/raycast/**
 .config/gh/**
+
+.task/**

@@ -33,7 +33,6 @@ zinit light Aloxaf/fzf-tab
 zinit snippet OMZL::git.zsh
 zinit snippet OMZP::git
 zinit snippet OMZP::sudo
-zinit snippet OMZP::archlinux
 zinit snippet OMZP::aws
 zinit snippet OMZP::kubectl
 zinit snippet OMZP::kubectx
@@ -45,8 +44,8 @@ zinit cdreplay -q
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --color=always $realpath'
 
 
 # --- KEYBINDINGS ---
@@ -68,10 +67,17 @@ setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 
-# --- NVM ---
+# --- NVM (lazy load) ---
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+_nvm_load() {
+  unset -f nvm node npm npx
+  [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+}
+nvm()  { _nvm_load; nvm  "$@"; }
+node() { _nvm_load; node "$@"; }
+npm()  { _nvm_load; npm  "$@"; }
+npx()  { _nvm_load; npx  "$@"; }
 
 ## ---- FZF -----
 eval "$(fzf --zsh)"
@@ -127,7 +133,6 @@ export BAT_THEME=tokyonight_night
 eval "$(zoxide init --cmd cd zsh)"
 
 # --- Bun ---
-[ -s "/Users/jfullmer/.bun/_bun" ] && source "/Users/jfullmer/.bun/_bun"
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
@@ -141,12 +146,15 @@ alias rt="tmux source-file ~/.tmux.conf"
 alias ed="v ~/.dotfiles"
 alias el='v ~/Library/Application\ Support/lazygit/config.yml'
 
+alias gacf='gaa && gcan! && ggfl'
+
 alias vim="v"
 alias vi="v"
 alias vnuke="rm -rf ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim"
 
 alias c="clear"
-alias ls="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
+alias ls="eza --color=always --icons=always"
+alias ll="eza --color=always --long --git --no-filesize --icons=always --no-time --no-user --no-permissions"
 
 alias python=python3.13
 
@@ -157,18 +165,14 @@ alias tl="task list"
 alias td="task done"
 alias tt="task add due:today"  # Quick add task due today
 
-if [ -f "$script_name" ]; then
-  . "$script_name"
-fi
-
 # --- Powerlevel10k ---
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # bun completions
-[ -s "/Users/fullmerjosh/.bun/_bun" ] && source "/Users/fullmerjosh/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # pnpm
-export PNPM_HOME="/Users/fullmerjosh/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
