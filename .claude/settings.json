@@ -1,0 +1,30 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/verify.sh",
+            "timeout": 120,
+            "statusMessage": "Running verify...",
+            "asyncRewake": true
+          }
+        ]
+      }
+    ]
+  },
+  "enabledPlugins": {
+    "playwright-skill@playwright-skill": true,
+    "caveman@caveman": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "caveman": {
+      "source": {
+        "source": "github",
+        "repo": "JuliusBrussee/caveman"
+      }
+    }
+  }
+}

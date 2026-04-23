@@ -1,0 +1,13 @@
+# Ignore everything by default
+*
+
+# Explicitly track these
+!.gitignore
+!CLAUDE.md
+!settings.json
+!hooks/
+!hooks/**
+!skills/
+!skills/**
+!memory/
+!memory/**
