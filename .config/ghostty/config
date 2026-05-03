@@ -12,6 +12,7 @@ window-save-state = always
 macos-titlebar-style = transparent
 window-colorspace = "display-p3"
 window-decoration = false
+desktop-notifications = true
 
 # Custom keybindings
 keybind = shift+space=text:_

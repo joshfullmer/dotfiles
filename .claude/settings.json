@@ -1,4 +1,5 @@
 {
+  "preferredNotifChannel": "ghostty",
   "hooks": {
     "Stop": [
       {
@@ -9,6 +10,11 @@
             "timeout": 120,
             "statusMessage": "Running verify...",
             "asyncRewake": true
+          },
+          {
+            "type": "command",
+            "command": "bash ~/.claude/hooks/notify.sh",
+            "timeout": 5
           }
         ]
       }
