@@ -36,6 +36,28 @@ Use `stow` to create symlinks.
 stow .
 ```
 
+### Install Packages
+
+A `Brewfile` at the repo root captures all dependencies. Install everything at once:
+
+```sh
+brew bundle --file ~/.dotfiles/Brewfile
+```
+
+To check what's missing on an existing machine:
+
+```sh
+brew bundle check --file ~/.dotfiles/Brewfile
+```
+
+To update the Brewfile after installing new packages:
+
+```sh
+brew bundle dump --force --file ~/.dotfiles/Brewfile
+```
+
+The sections below document each tool and any additional setup steps required after installation.
+
 ### Terminal Setup
 
 #### Ghostty
