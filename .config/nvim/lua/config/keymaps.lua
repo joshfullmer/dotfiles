@@ -23,4 +23,13 @@ vim.keymap.set("v", "<", "<gv", { desc = "Indent left and reselect" })
 vim.keymap.set("v", ">", ">gv", { desc = "Indent right and reselect" })
 
 -- restart LSP
-vim.keymap.set("n", "<leader>r", "<cmd>LspRestart<CR><esc>", { desc = "Restart LSP" })
+vim.keymap.set("n", "<leader>r", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients({ bufnr = bufnr })
+  for _, client in ipairs(clients) do
+    vim.lsp.stop_client(client.id)
+  end
+  vim.defer_fn(function()
+    vim.cmd("edit")
+  end, 200)
+end, { desc = "Restart LSP" })

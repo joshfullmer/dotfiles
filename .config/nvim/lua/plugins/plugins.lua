@@ -138,8 +138,14 @@ return {
       terminal = {
         win = {
           position = "float",
-          width = 0.8,
-          height = 0.8,
+          width = 0.95,
+          height = 0.95,
+        },
+      },
+      lazygit = {
+        win = {
+          width = 0.95,
+          height = 0.95,
         },
       },
     },

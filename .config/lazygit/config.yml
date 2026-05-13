@@ -1,0 +1,4 @@
+os:
+  edit: 'nvim --server "$NVIM" --remote-send ''<cmd>lua require("core.scripts.lazygit-open-file")([[{{filename}}]])<CR>'''
+  editAtLine: 'nvim --server "$NVIM" --remote-send ''<cmd>lua require("core.scripts.lazygit-open-file")([[{{filename}}]], {{line}})<CR>'''
+  open: 'nvim --server "$NVIM" --remote-send ''<cmd>lua require("core.scripts.lazygit-open-file")([[{{filename}}]])<CR>'''
