@@ -158,12 +158,8 @@ alias ll="eza --color=always --long --git --no-filesize --icons=always --no-time
 
 alias python=python3.13
 
-# Taskwarrior aliases
-alias t="task"
-alias ta="task add"
-alias tl="task list"
-alias td="task done"
-alias tt="task add due:today"  # Quick add task due today
+# Tuxedo (todo.txt TUI)
+alias todo='tuxedo ~/todo.txt'
 
 # --- Powerlevel10k ---
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
